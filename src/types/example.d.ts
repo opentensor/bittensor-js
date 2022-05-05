@@ -22,3 +22,4 @@ declare module 'module-name' {
   const whatever: any;
   export = whatever;
 }
+
