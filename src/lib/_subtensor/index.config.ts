@@ -1,0 +1,6 @@
+
+export default {
+    SUBSTRATE_HOST_AKATSUKI: "",
+    SUBSTRATE_HOST_NOBUNAGA: "",
+    SUBSTRATE_HOST_NAKAMOTO: "",
+};
