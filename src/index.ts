@@ -1,1 +1,1 @@
-export * from './lib/_subtensor/subtensor';
+export * from './lib/_subtensor';
