@@ -4,14 +4,23 @@ const { machine_types } = require('./index.config');
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 const {subtensor_custom_types, subtensor_custom_types_priority} = require('./types/subtensor');
 
+class Subtensor {
+    network: string;
+    chain_endpoint: string;
+    wsProvider: any;
+    api: any;
+    dismissNewBlock: any;
+    dataType: string;
+    inProgress: boolean;
 
+}
 
 
 /**
  * Handles interactions with the subtensor chain.
  * Referenced from https://github.com/opentensor/bittensor
  */
-class Subtensor {
+class SubtensorApi extends Subtensor {
     /** 
      * Subtensor Type Definitions
      * @param {*} network - nakamoto, nobunaga, akatsuki
@@ -40,7 +49,8 @@ class Subtensor {
      * @param {*} dataType - custom data type
      * @param {*} inProgress - in progress flag
      */
-    constructor(network="", chain_endpoint =""){
+    constructor(network="", chain_endpoint ="") {
+        super();
         this.network = network;
         this.chain_endpoint = this.getEndpoint(chain_endpoint);
         this.wsProvider = null;
@@ -49,6 +59,7 @@ class Subtensor {
         this.dataType = this.getDataType(chain_endpoint);
         this.inProgress = false;
     }
+
 
     async create() {
         this.wsProvider = new WsProvider(this.chain_endpoint);
