@@ -5,15 +5,6 @@ const { ApiPromise, WsProvider } = require('@polkadot/api');
 const {subtensor_custom_types, subtensor_custom_types_priority} = require('./types/subtensor');
 
 
-interface Subtensor {
-    network: string;
-    chain_endpoint: string;
-    wsProvider: any;
-    api: any;
-    dismissNewBlock: any;
-    dataType: string;
-    inProgress: boolean;
-}
 
 
 /**
@@ -21,10 +12,33 @@ interface Subtensor {
  * Referenced from https://github.com/opentensor/bittensor
  */
 class Subtensor {
+    /** 
+     * Subtensor Type Definitions
+     * @param {*} network - nakamoto, nobunaga, akatsuki
+     * @param {*} chain_endpoint - substrate chain endpoint
+     * @param {*} wsProvider - substrate chain provider
+     * @param {*} api - substrate chain api
+     * @param {*} dismissNewBlock - callback to dismiss new block event
+     * @param {*} dataType - custom datatype
+     * @param {*} inProgress - boolean to check if request is in progress
+     */
+    network: string;
+    chain_endpoint: string;
+    wsProvider: any;
+    api: any;
+    dismissNewBlock: any;
+    dataType: string;
+    inProgress: boolean;
+
     /**
      * Constructor
      * @param {*} network - not yet confirmed
      * @param {*} chain_endpoint - Substrate chain endpoint
+     * @param {*} wsProvider - Substrate websocket provider
+     * @param {*} api - Substrate api
+     * @param {*} dismissNewBlock - callback to dismiss new block event
+     * @param {*} dataType - custom data type
+     * @param {*} inProgress - in progress flag
      */
     constructor(network="", chain_endpoint =""){
         this.network = network;
@@ -35,7 +49,7 @@ class Subtensor {
         this.dataType = this.getDataType(chain_endpoint);
         this.inProgress = false;
     }
-    
+
     async create() {
         this.wsProvider = new WsProvider(this.chain_endpoint);
         this.api = await ApiPromise.create({ 

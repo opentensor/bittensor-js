@@ -1,6 +1,6 @@
-// import Subtensor from src/lib/subtensor/index.ts
+import Subtensor from 'src/lib/_subtensor/index'
 
-const { Subtensor } = require('@bittensor/subtensor');
+// const Subtensor = require('src/lib/_subtensor/index.ts');
 
 const substrate_host = 'nakamoto';
 
