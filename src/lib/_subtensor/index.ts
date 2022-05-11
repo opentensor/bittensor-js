@@ -1,5 +1,5 @@
 
-import machine_types from './index.config';
+const { machine_types } = require('./index.config');
 
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 const {subtensor_custom_types, subtensor_custom_types_priority} = require('./types/subtensor');
