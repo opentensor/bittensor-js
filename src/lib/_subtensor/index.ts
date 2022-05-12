@@ -3,6 +3,7 @@
 // const {subtensor_custom_types, subtensor_custom_types_priority} = require('../../types/subtensor');
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 
+const RAOPERTAO = 1000000000;
 
 /// subtensor custom types
 const subtensor_custom_types = {
@@ -57,7 +58,7 @@ const subtensor_custom_types_priority = {
     }
 };
 
-const machine_types = {
+const substrate_types = {
     SUBSTRATE_HOST_AKATSUKI: "archivelb.nakamoto.opentensor.ai:9944",
     SUBSTRATE_HOST_NOBUNAGA: "archivelb.nakamoto.opentensor.ai:9944",
     SUBSTRATE_HOST_NAKAMOTO: "archivelb.nakamoto.opentensor.ai:9944",
@@ -107,7 +108,6 @@ class Subtensor {
             types: this.dataType
           });
 
-        return this.api;
     }
     
     /**
@@ -117,15 +117,15 @@ class Subtensor {
      */
     getEndpoint(endpoint) {
         if (endpoint === "" || endpoint === "akatsuki" ){
-            return 'ws://' + machine_types.SUBSTRATE_HOST_AKATSUKI;
+            return 'ws://' + substrate_types.SUBSTRATE_HOST_AKATSUKI;
         }
         else if ( endpoint === "nobunaga" ) {
-            return 'ws://' + machine_types.SUBSTRATE_HOST_NOBUNAGA;
+            return 'ws://' + substrate_types.SUBSTRATE_HOST_NOBUNAGA;
         }
         else if ( endpoint === 'nakamoto' ) {
-            return 'ws://' + machine_types.SUBSTRATE_HOST_NAKAMOTO;
+            return 'ws://' + substrate_types.SUBSTRATE_HOST_NAKAMOTO;
         }
-        return 'ws://' + machine_types.SUBSTRATE_HOST_AKATSUKI;
+        return 'ws://' + substrate_types.SUBSTRATE_HOST_AKATSUKI;
     }
 
     /**
@@ -140,6 +140,25 @@ class Subtensor {
             return subtensor_custom_types_priority;
         }
         return subtensor_custom_types;
+    }
+
+
+    /**
+     * retrieve coldkey balance from substrate chain
+     * @param {*} coldkey - string - coldkey address
+     * @returns balance - number - balance
+     * 
+     * @example
+     * const balance = await Subtensor.getColdkeyBalance('0x...');
+     * console.log(balance);
+     * // => 1000000000000
+    **/
+
+    async getColdkeyBalance(coldkey) {
+        const system = await this.api.query.system.account(coldkey)
+        const balance = system.data.free/RAOPERTAO;
+        // console.log(this.api)
+        return balance;
     }
 
 
