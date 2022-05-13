@@ -265,10 +265,16 @@ class Subtensor {
         return value;
     }
 
-    async block () {
+    async get_current_block () {
         const lastHeader = await this.api.rpc.chain.getHeader();
 
         const value = lastHeader.number.toHuman()
+        return value;
+    }
+
+    async block () {
+        const value = await this.get_current_block();
+
         return value;
     }
 
