@@ -237,6 +237,13 @@ class Subtensor {
         return value;
     }
 
+    async min_allowed_weights () {
+        const minAllowedWeights = await this.api.query.subtensorModule.minAllowedWeights();
+
+        const value = minAllowedWeights.toHuman()
+        return value;
+    }
+
 
 
 
