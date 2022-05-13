@@ -161,6 +161,19 @@ class Subtensor {
         return balance;
     }
 
+    /**
+     * retrieve rho parameter from substrate chain
+     * @returns rho - int - Incentive mechanism rho parameter.
+     * 
+     **/
+    async rho () {
+
+        const rho = await this.api.query.subtensorModule.rho();
+
+        const value = rho.toHuman()
+        return value;
+    }
+
 
  
 }

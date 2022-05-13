@@ -3,7 +3,6 @@
 const { Subtensor } = require('./src/lib/_subtensor/index.ts');
 
 const substrate_host = 'ws://archivelb.nakamoto.opentensor.ai:9944';
-const RAOPERTAO = 1000000000;
 
 const subtensor = new Subtensor("nakamoto", substrate_host);
 // subtensor.create().then(()=>{
@@ -18,10 +17,10 @@ const connect_to_subtensor = async () => {
 const run = async () => {
     await connect_to_subtensor();
 
-    const balance = await subtensor.getColdkeyBalance('5H9ApXP8beRy3RsVsBy9hhCZZPMbF9dLax6jTy5z27bQ4LkU');
+    // const balance = await subtensor.getColdkeyBalance('5H9ApXP8beRy3RsVsBy9hhCZZPMbF9dLax6jTy5z27bQ4LkU');
+    const rho = await subtensor.rho();
     
-    
-    console.log(balance);
+    console.log(rho);
 }
 
 run();
