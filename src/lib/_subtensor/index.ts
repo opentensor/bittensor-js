@@ -223,7 +223,21 @@ class Subtensor {
         return value;
     }
 
-    
+    async validator_epoch_length () {
+        const validatorEpochLength = await this.api.query.subtensorModule.validatorEpochLength();
+
+        const value = validatorEpochLength.toHuman()
+        return value;
+    }
+
+    async total_stake () {
+        const totalStake = await this.api.query.subtensorModule.totalStake();
+
+        const value = totalStake.toHuman()
+        return value;
+    }
+
+
 
 
 
