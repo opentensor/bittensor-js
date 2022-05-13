@@ -209,6 +209,13 @@ class Subtensor {
         return value;
     }
 
+    async validator_sequence_length () {
+        const validatorSequenceLength = await this.api.query.subtensorModule.validatorSequenceLength();
+
+        const value = validatorSequenceLength.toHuman()
+        return value;
+    }
+
 
 
 
