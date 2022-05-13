@@ -174,6 +174,13 @@ class Subtensor {
         return value;
     }
 
+    async kappa () {
+        const kappa = await this.api.query.subtensorModule.kappa();
+
+        const value = kappa.toHuman()
+        return value;
+    }
+
 
  
 }
