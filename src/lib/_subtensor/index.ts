@@ -181,6 +181,29 @@ class Subtensor {
         return value;
     }
 
+    async difficulty () {
+        const difficulty = await this.api.query.subtensorModule.difficulty();
+
+        const value = difficulty.toHuman()
+        return value;
+    }
+
+    async total_issuance () {
+        const totalIssuance = await this.api.query.subtensorModule.totalIssuance();
+
+        const value = totalIssuance.toHuman()
+        return value;
+    }
+
+    async immunity_period () {
+        const immunityPeriod = await this.api.query.subtensorModule.immunityPeriod();
+
+        const value = immunityPeriod.toHuman()
+        return value;
+    }
+
+    
+
 
  
 }
