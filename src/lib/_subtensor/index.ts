@@ -244,6 +244,13 @@ class Subtensor {
         return value;
     }
 
+    async max_allowed_min_max_ratio () {
+        const maxAllowedMinMaxRatio = await this.api.query.subtensorModule.maxAllowedMinMaxRatio();
+
+        const value = maxAllowedMinMaxRatio.toHuman()
+        return value;
+    }
+
 
 
 
