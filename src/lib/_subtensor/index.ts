@@ -216,6 +216,17 @@ class Subtensor {
         return value;
     }
 
+    async validator_epochs_per_reset () {
+        const validatorEpochsPerReset = await this.api.query.subtensorModule.validatorEpochsPerReset();
+
+        const value = validatorEpochsPerReset.toHuman()
+        return value;
+    }
+
+    
+
+
+
 
 
 
