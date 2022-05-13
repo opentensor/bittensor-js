@@ -258,6 +258,13 @@ class Subtensor {
         return value;
     }
 
+    async max_n () {
+        const maxN = await this.api.query.subtensorModule.maxAllowedUids();
+
+        const value = maxN.toHuman()
+        return value;
+    }
+
 
 
 
