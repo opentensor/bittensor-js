@@ -251,6 +251,13 @@ class Subtensor {
         return value;
     }
 
+    async n () {
+        const n = await this.api.query.subtensorModule.n();
+
+        const value = n.toHuman()
+        return value;
+    }
+
 
 
 
