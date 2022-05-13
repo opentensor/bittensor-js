@@ -202,7 +202,14 @@ class Subtensor {
         return value;
     }
 
-    
+    async validator_batch_size () {
+        const validatorBatchSize = await this.api.query.subtensorModule.validatorBatchSize();
+
+        const value = validatorBatchSize.toHuman()
+        return value;
+    }
+
+
 
 
  
