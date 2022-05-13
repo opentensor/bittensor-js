@@ -18,7 +18,7 @@ const run = async () => {
     await connect_to_subtensor();
 
     // const balance = await subtensor.getColdkeyBalance('5H9ApXP8beRy3RsVsBy9hhCZZPMbF9dLax6jTy5z27bQ4LkU');
-    const kappa = await subtensor.max_n();
+    const kappa = await subtensor.block();
     
     console.log(kappa);
 }

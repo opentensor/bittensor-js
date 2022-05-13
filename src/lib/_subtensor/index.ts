@@ -265,6 +265,13 @@ class Subtensor {
         return value;
     }
 
+    async block () {
+        const lastHeader = await this.api.rpc.chain.getHeader();
+
+        const value = lastHeader.number.toHuman()
+        return value;
+    }
+
 
 
 
