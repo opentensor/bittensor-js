@@ -280,16 +280,19 @@ class Subtensor {
 
     async blocks_since_epoch () {
         const value = await this.api.query.subtensorModule.blocksSinceLastStep();
-
-        return value;
+        
+        return value.toHuman();
     }
 
     async blocks_per_epoch () {
         const value = await this.api.query.subtensorModule.blocksPerStep();
 
-        return value;
+        return value.toHuman();
     }
     
+    async get_n (block?=) {
+
+    }
     
 
 
