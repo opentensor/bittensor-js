@@ -300,7 +300,7 @@ class Subtensor {
 
         return value.toHuman();
     }
-    
+
     //TODO: add block parameter
     async get_balance (address, block?) {
         const system = await this.api.query.system.account(address)
@@ -318,6 +318,14 @@ class Subtensor {
             balances.address = balance;
         }
         return balances;
+    }
+
+    async neuron_for_uid(uid, block?) {
+        const value = await this.api.query.subtensorModule.neurons(uid);
+        if (block) {
+            const value = await this.api.query.subtensorModule.neurons(uid, block);
+        }
+        return value.toHuman();
     }
 
 
