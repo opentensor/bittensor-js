@@ -289,7 +289,8 @@ class Subtensor {
 
         return value.toHuman();
     }
-    
+
+    //TODO: add block parameter
     async get_n (block?) {
         let value = await this.api.query.subtensorModule.n();
         if (block) {
@@ -299,13 +300,27 @@ class Subtensor {
 
         return value.toHuman();
     }
-
+    
+    //TODO: add block parameter
     async get_balance (address, block?) {
         const system = await this.api.query.system.account(address)
         const balance = system.data.free/RAOPERTAO;
         // console.log(this.api)
         return balance;
     }
+
+    //TODO: add block parameter
+    async get_balances (addresses, block?) {
+        let balances = {};
+        for (let i = 0; i < addresses.length; i++) {
+            const address = addresses[i];
+            const balance = await this.get_balance(address, block);
+            balances.address = balance;
+        }
+        return balances;
+    }
+
+
 
 
 
