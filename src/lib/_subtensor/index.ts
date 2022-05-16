@@ -123,7 +123,7 @@ class Subtensor {
             return 'ws://' + substrate_types.SUBSTRATE_HOST_NOBUNAGA;
         }
         else if ( endpoint === 'nakamoto' ) {
-            return 'ws://' + substrate_types.SUBSTRATE_HOST_NAKAMOTO;
+            return 'ws://' + substrate_types.SUBSTRATE_HOST_NAKAMOTO; 
         }
         return 'ws://' + substrate_types.SUBSTRATE_HOST_AKATSUKI;
     }
@@ -277,6 +277,13 @@ class Subtensor {
 
         return value;
     }
+
+    async blocks_since_epoch () {
+        const value = await this.api.query.subtensorModule.blocksSinceLastStep();
+
+        return value;
+    }
+    
 
 
 
