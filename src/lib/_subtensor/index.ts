@@ -283,6 +283,13 @@ class Subtensor {
 
         return value;
     }
+
+    async blocks_per_epoch () {
+        const value = await this.api.query.subtensorModule.blocksPerStep();
+
+        return value;
+    }
+    
     
 
 
