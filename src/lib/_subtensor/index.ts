@@ -328,6 +328,12 @@ class Subtensor {
         return value.toHuman();
     }
 
+    async get_uid_for_hotkey(ss58_hotkey, block?) {
+        const value = await this.api.query.subtensorModule.hotkeys(ss58_hotkey);
+
+        return value
+    }
+
 
 
 
