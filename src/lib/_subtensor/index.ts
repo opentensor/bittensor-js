@@ -290,10 +290,22 @@ class Subtensor {
         return value.toHuman();
     }
     
-    async get_n (block?=) {
+    async get_n (block?) {
+        let value = await this.api.query.subtensorModule.n();
+        if (block) {
+            value = await this.api.query.subtensorModule.n(block);
+        }
 
+
+        return value.toHuman();
     }
-    
+
+    async get_balance (address, block?) {
+        const system = await this.api.query.system.account(address)
+        const balance = system.data.free/RAOPERTAO;
+        // console.log(this.api)
+        return balance;
+    }
 
 
 
