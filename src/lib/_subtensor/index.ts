@@ -329,10 +329,17 @@ class Subtensor {
         return value.toHuman();
     }
 
-    async get_uid_for_hotkey(ss58_hotkey) {
-        const value = await this.api.query.subtensorModule.hotkeys(ss58_hotkey);
+    async get_uid_for_hotkey(ss58_address) {
+        const value = await this.api.query.subtensorModule.hotkeys(ss58_address);
 
-        return value
+        const neuron = await this.neuron_for_uid(value.toHuman())
+)
+        if (neuron.hotkey !== ss58_address) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     async neurons() {
@@ -405,6 +412,19 @@ class Subtensor {
         const uid = await this.get_uid_for_hotkey(ss58_hotkey);
 
         if (uid === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    async neuron_for_pubkey (ss58_address) {
+        const value = await this.api.query.subtensorModule.hotkeys(ss58_address);
+
+
+        const neuron = await this.neuron_for_uid(value.toHuman())
+
+        if (neuron.hotkey !== ss58_address) {
             return false;
         } else {
             return true;
