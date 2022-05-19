@@ -320,18 +320,95 @@ class Subtensor {
         return balances;
     }
 
+    
     async neuron_for_uid(uid, block?) {
-        const value = await this.api.query.subtensorModule.neurons(uid);
+        let value = await this.api.query.subtensorModule.neurons(uid);
         if (block) {
-            const value = await this.api.query.subtensorModule.neurons(uid, block);
+            value = await this.api.query.subtensorModule.neurons(uid, block);
         }
         return value.toHuman();
     }
 
-    async get_uid_for_hotkey(ss58_hotkey, block?) {
+    async get_uid_for_hotkey(ss58_hotkey) {
         const value = await this.api.query.subtensorModule.hotkeys(ss58_hotkey);
 
         return value
+    }
+
+    async neurons() {
+        const neurons = [];
+        const n = await this.get_n();
+
+        for (let i = 0; i < n; i++) {
+            const neuron = this.neuron_for_uid(i);
+
+            neurons.push(neuron);
+        }
+
+        return neurons
+    }
+
+    _null_neuron () {
+        const neuron = {
+            active: 0,
+            stake: 0,
+            rank: 0,
+            trust: 0,
+            consensus: 0,
+            incentive: 0,
+            dividends: 0,
+            emission: 0,
+            weights: [],
+            bonds: [],
+            version: 0,
+            modality: 0,
+            uid: 0,
+            port: 0,
+            priority: 0,
+            ip_type: 0,
+            last_update: 0,
+            ip: 0,
+            is_null: 0,
+            coldkey: "000000000000000000000000000000000000000000000000",
+            hotkey: "000000000000000000000000000000000000000000000000"
+        };
+
+        return neuron;
+    }
+
+
+    _neuron_dict_to_namespace (neuron_dict) {
+        if (neuron_dict.hotkey === '5C4hrfjw9DjXZTzV3MwzrrAr9P1MJhSrvWGWqi1eSuyUpnhM') {
+            return this._null_neuron();
+        } else {
+            const RAOPERTAO = 1000000000;
+            const U64MAX = 18446744073709551615;
+            
+            const neuron = neuron_dict;
+
+            neuron.stake = neuron.stake / RAOPERTAO;
+            neuron.rank = neuron.rank / U64MAX;
+            neuron.trust = neuron.trust / U64MAX;
+            neuron.consensus = neuron.consensus / U64MAX;
+            neuron.incentive = neuron.incentive / U64MAX;
+            neuron.dividends = neuron.dividends / U64MAX;
+            neuron.emission = neuron.emission / RAOPERTAO;
+            neuron.is_null = false;
+
+            return neuron;
+        }
+
+
+    }
+
+    async is_hotkey_registered (ss58_hotkey) {
+        const uid = await this.get_uid_for_hotkey(ss58_hotkey);
+
+        if (uid === -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
