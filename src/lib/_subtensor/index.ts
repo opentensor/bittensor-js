@@ -3,6 +3,19 @@
 // const {subtensor_custom_types, subtensor_custom_types_priority} = require('../../types/subtensor');
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 
+
+// Given an  array of n distinct integers and an integer k, find if there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+
+// CONSTRAINTS:
+
+// 2 <= n <= 10^5
+
+// -10^9 <= nums[i] <= 10^9
+
+// 0 <= k <= n-2
+
+// DIFFICULTY: Medium
+
 const RAOPERTAO = 1000000000;
 
 /// subtensor custom types
@@ -291,7 +304,7 @@ class Subtensor {
     }
 
     //TODO: add block parameter
-    async get_n (block?) {
+    async get_n (block) {
         let value = await this.api.query.subtensorModule.n();
         if (block) {
             value = await this.api.query.subtensorModule.n(block);
@@ -302,7 +315,7 @@ class Subtensor {
     }
 
     //TODO: add block parameter
-    async get_balance (address, block?) {
+    async get_balance (address, block) {
         const system = await this.api.query.system.account(address)
         const balance = system.data.free/RAOPERTAO;
         // console.log(this.api)
@@ -310,7 +323,7 @@ class Subtensor {
     }
 
     //TODO: add block parameter
-    async get_balances (addresses, block?) {
+    async get_balances (addresses, block) {
         let balances = {};
         for (let i = 0; i < addresses.length; i++) {
             const address = addresses[i];
@@ -321,7 +334,7 @@ class Subtensor {
     }
 
     
-    async neuron_for_uid(uid, block?) {
+    async neuron_for_uid(uid, block) {
         let value = await this.api.query.subtensorModule.neurons(uid);
         if (block) {
             value = await this.api.query.subtensorModule.neurons(uid, block);
@@ -333,7 +346,7 @@ class Subtensor {
         const value = await this.api.query.subtensorModule.hotkeys(ss58_address);
 
         const neuron = await this.neuron_for_uid(value.toHuman())
-)
+
         if (neuron.hotkey !== ss58_address) {
             return false;
         } else {
@@ -429,18 +442,7 @@ class Subtensor {
         } else {
             return true;
         }
-    }
-
-
-
-
-
-
-
-
-
-
- 
+    } 
 }
 
 
